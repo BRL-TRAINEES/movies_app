@@ -19,11 +19,11 @@ class _MoviesState extends State<Movies> {
 
   Future<void> MoviesFunction() async {
     var popularmoviesurl =
-        'https://api.themoviedb.org/3/movie/popular?api_key=$apikey';
+        'https://api.themoviedb.org/3/movie/popular?api_key=$tmdbapikey';
     var nowplayingmoviesurl =
-        'https://api.themoviedb.org/3/movie/now_playing?api_key=$apikey';
+        'https://api.themoviedb.org/3/movie/now_playing?api_key=$tmdbapikey';
     var topratedmoviesurl =
-        'https://api.themoviedb.org/3/movie/top_rated?api_key=$apikey';
+        'https://api.themoviedb.org/3/movie/top_rated?api_key=$tmdbapikey';
 
     var popularmoviesresponse = await http.get(Uri.parse(popularmoviesurl));
     if (popularmoviesresponse.statusCode == 200) {
@@ -87,9 +87,9 @@ class _MoviesState extends State<Movies> {
             return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  sliderlist(popularmovies, "Popular Now", 20),
-                  sliderlist(topratedmovies, "Top Rated", 20),
-                  sliderlist(nowplayingmovies, "Now Playing", 20),
+                  sliderlist(popularmovies, "Popular Now", 'movie', 20),
+                  sliderlist(topratedmovies, "Top Rated", 'movie', 20),
+                  sliderlist(nowplayingmovies, "Now Playing", 'movie', 20),
                 ]);
           }
         });

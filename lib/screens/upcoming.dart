@@ -14,7 +14,7 @@ class Upcoming extends StatefulWidget {
 class _UpcomingState extends State<Upcoming> {
   List<Map<String, dynamic>> upcoming = [];
   var upcomingurl =
-      'https://api.themoviedb.org/3/movie/upcoming?api_key=$apikey';
+      'https://api.themoviedb.org/3/movie/upcoming?api_key=$tmdbapikey';
 
   Future<void> UpcomingFunction() async {
     var upcomingresponse = await http.get(Uri.parse(upcomingurl));
@@ -48,7 +48,7 @@ class _UpcomingState extends State<Upcoming> {
             return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  sliderlist(upcoming, "Upcoming", 20),
+                  sliderlist(upcoming, "Upcoming", 'movie', 20),
                 ]);
           }
         });

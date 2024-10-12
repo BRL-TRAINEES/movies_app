@@ -17,11 +17,11 @@ class _SeriesState extends State<Series> {
   List<Map<String, dynamic>> topratedseries = [];
 
   var popularseriesurl =
-      'https://api.themoviedb.org/3/tv/popular?api_key=$apikey';
+      'https://api.themoviedb.org/3/tv/popular?api_key=$tmdbapikey';
   var onairseriesurl =
-      'https://api.themoviedb.org/3/tv/on_the_air?api_key=$apikey';
+      'https://api.themoviedb.org/3/tv/on_the_air?api_key=$tmdbapikey';
   var topratedseriesurl =
-      'https://api.themoviedb.org/3/tv/top_rated?api_key=$apikey';
+      'https://api.themoviedb.org/3/tv/top_rated?api_key=$tmdbapikey';
 
   Future<void> SeriesFunction() async {
     var popularseriesresponse = await http.get(Uri.parse(popularseriesurl));
@@ -85,9 +85,9 @@ class _SeriesState extends State<Series> {
             return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  sliderlist(popularseries, "Popular Now", 20),
-                  sliderlist(topratedseries, "Top Rated", 20),
-                  sliderlist(onairseries, "Now Playing", 20),
+                  sliderlist(popularseries, "Popular Now", 'series', 20),
+                  sliderlist(topratedseries, "Top Rated", 'series', 20),
+                  sliderlist(onairseries, "Now Playing", 'series', 20),
                 ]);
           }
         });

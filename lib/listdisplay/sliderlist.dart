@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/details/moviedetails.dart';
+import 'package:movie_app/details/seriesdetails.dart';
 
-Widget sliderlist(List listname, String title, itemlength) {
+Widget sliderlist(List listname, String title, String type, itemlength) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -23,7 +25,21 @@ Widget sliderlist(List listname, String title, itemlength) {
             itemCount: itemlength,
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  if (type == 'movie') {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                Moviedetails(listname[index]['id'])));
+                  } else if (type == 'series') {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                Seriesdetails(listname[index]['id'])));
+                  }
+                },
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(14),

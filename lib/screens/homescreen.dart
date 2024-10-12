@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:movie_app/apiKey/apiKey.dart';
 import 'dart:convert';
 import 'package:movie_app/apiKey/apiLinks.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:movie_app/details/moviedetails.dart';
+import 'package:movie_app/details/seriesdetails.dart';
 import 'package:movie_app/screens/movies.dart';
 import 'package:movie_app/screens/series.dart';
 import 'package:movie_app/screens/upcoming.dart';
@@ -16,6 +19,10 @@ class Homescreen extends StatefulWidget {
 
 class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
   List<Map<String, dynamic>> trending = [];
+  String trendingweekurl =
+      'https://api.themoviedb.org/3/trending/all/week?api_key=$tmdbapikey';
+  String trendingdayurl =
+      'https://api.themoviedb.org/3/trending/all/day?api_key=$tmdbapikey';
 
   Future<void> trendinghome() async {
     if (val == 1) {
@@ -78,7 +85,21 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                         items: trending.map((i) {
                           return Builder(builder: (BuilderContext) {
                             return GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                if (i['media_type'] == 'movie') {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Moviedetails(i['id'])));
+                                } else if (i['media_type'] == 'tv') {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Seriesdetails(i['id'])));
+                                }
+                              },
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
                                 decoration: BoxDecoration(
