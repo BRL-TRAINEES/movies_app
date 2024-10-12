@@ -29,8 +29,24 @@ class _HomescreenState extends State<Homescreen> {
         });
       }
     }
+
+    var trendingdayresponse = await http.get(Uri.parse(trendingdayurl));
+    if (trendingweekresponse.statusCode == 200) {
+      var temp = jsonDecode(trendingdayresponse.body);
+      var trendingdaydata = temp['results'];
+      for (var i = 0; i < trendingdaydata.length; i++) {
+        trending.add({
+          'id': trendingdaydata[i]['id'],
+          'poster_path': trendingdaydata[i]['poster_path'],
+          'vote_average': trendingdaydata[i]['vote_average'],
+          'media_type': trendingdaydata[i]['media_type'],
+          'indexno': i,
+        });
+      }
+    }
   }
 
+  int val = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +56,7 @@ class _HomescreenState extends State<Homescreen> {
             centerTitle: true,
             pinned: true,
             toolbarHeight: 60,
-            expandedHeight: MediaQuery.of(context).size.height * 0.5,
+            expandedHeight: MediaQuery.of(context).size.height * 0.6,
             flexibleSpace: FlexibleSpaceBar(
               collapseMode: CollapseMode.parallax,
               background: FutureBuilder(
@@ -49,26 +65,25 @@ class _HomescreenState extends State<Homescreen> {
                     if (snapshot.connectionState == ConnectionState.done) {
                       return CarouselSlider(
                         options: CarouselOptions(
-                            viewportFraction: 1,
-                            autoPlay: true,
-                            autoPlayInterval: Duration(seconds: 3),
-                            height: MediaQuery.of(context).size.height),
+                          autoPlay: true,
+                          autoPlayInterval: Duration(seconds: 3),
+                          height: MediaQuery.of(context).size.height,
+                          viewportFraction: 1.0,
+                        ),
                         items: trending.map((i) {
                           return Builder(builder: (BuilderContext) {
                             return GestureDetector(
                               onTap: () {},
-                              child: GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      colorFilter: ColorFilter.mode(
-                                          Colors.black.withOpacity(0.3),
-                                          BlendMode.darken),
-                                      image: NetworkImage(
-                                          'https://image.tmdb.org/t/p/original/${i['poster_path']}'),
-                                    ),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    colorFilter: ColorFilter.mode(
+                                        Colors.black.withOpacity(0.3),
+                                        BlendMode.darken),
+                                    image: NetworkImage(
+                                        'https://image.tmdb.org/t/p/original/${i['poster_path']}'),
                                   ),
                                 ),
                               ),
@@ -83,18 +98,52 @@ class _HomescreenState extends State<Homescreen> {
                     }
                   }),
             ),
-            title: const Row(
+            title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'Trending',
                   style: TextStyle(
                       color: Color.fromARGB(214, 237, 231, 231),
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 12,
+                ),
+                Container(
+                  height: 42,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: DropdownButton(
+                        value: val,
+                        items: [
+                          DropdownMenuItem(
+                            child: Text(
+                              'Daily',
+                              style: TextStyle(
+                                  decoration: TextDecoration.none,
+                                  color: Colors.white,
+                                  fontSize: 18),
+                            ),
+                            value: 1,
+                          ),
+                          DropdownMenuItem(
+                            child: Text(
+                              'Weekly',
+                              style: TextStyle(
+                                  decoration: TextDecoration.none,
+                                  color: Colors.white,
+                                  fontSize: 18),
+                            ),
+                            value: 2,
+                          ),
+                        ],
+                        onChanged: (value) {}),
+                  ),
                 )
               ],
             ),
