@@ -3,6 +3,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:movie_app/apiKey/apiLinks.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:movie_app/screens/movies.dart';
+import 'package:movie_app/screens/series.dart';
+import 'package:movie_app/screens/upcoming.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -57,7 +60,6 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
         slivers: [
           SliverAppBar(
             centerTitle: true,
-            pinned: true,
             toolbarHeight: 60,
             expandedHeight: MediaQuery.of(context).size.height * 0.6,
             flexibleSpace: FlexibleSpaceBar(
@@ -185,6 +187,17 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                 ],
               ),
             ),
+            Container(
+              height: 1000,
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  Movies(),
+                  Series(),
+                  Upcoming(),
+                ],
+              ),
+            )
           ]))
         ],
       ),
