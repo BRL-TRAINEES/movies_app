@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_app/apiKey/apiKey.dart';
 import 'dart:convert';
-import 'package:movie_app/apiKey/apiLinks.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:movie_app/details/moviedetails.dart';
 import 'package:movie_app/details/seriesdetails.dart';
