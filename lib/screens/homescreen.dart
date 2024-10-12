@@ -11,37 +11,39 @@ class Homescreen extends StatefulWidget {
   State<Homescreen> createState() => _HomescreenState();
 }
 
-class _HomescreenState extends State<Homescreen> {
+class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
   List<Map<String, dynamic>> trending = [];
 
   Future<void> trendinghome() async {
-    var trendingweekresponse = await http.get(Uri.parse(trendingweekurl));
-    if (trendingweekresponse.statusCode == 200) {
-      var temp = jsonDecode(trendingweekresponse.body);
-      var trendingweekdata = temp['results'];
-      for (var i = 0; i < trendingweekdata.length; i++) {
-        trending.add({
-          'id': trendingweekdata[i]['id'],
-          'poster_path': trendingweekdata[i]['poster_path'],
-          'vote_average': trendingweekdata[i]['vote_average'],
-          'media_type': trendingweekdata[i]['media_type'],
-          'indexno': i,
-        });
+    if (val == 1) {
+      var trendingweekresponse = await http.get(Uri.parse(trendingweekurl));
+      if (trendingweekresponse.statusCode == 200) {
+        var temp = jsonDecode(trendingweekresponse.body);
+        var trendingweekdata = temp['results'];
+        for (var i = 0; i < trendingweekdata.length; i++) {
+          trending.add({
+            'id': trendingweekdata[i]['id'],
+            'poster_path': trendingweekdata[i]['poster_path'],
+            'vote_average': trendingweekdata[i]['vote_average'],
+            'media_type': trendingweekdata[i]['media_type'],
+            'indexno': i,
+          });
+        }
       }
-    }
-
-    var trendingdayresponse = await http.get(Uri.parse(trendingdayurl));
-    if (trendingweekresponse.statusCode == 200) {
-      var temp = jsonDecode(trendingdayresponse.body);
-      var trendingdaydata = temp['results'];
-      for (var i = 0; i < trendingdaydata.length; i++) {
-        trending.add({
-          'id': trendingdaydata[i]['id'],
-          'poster_path': trendingdaydata[i]['poster_path'],
-          'vote_average': trendingdaydata[i]['vote_average'],
-          'media_type': trendingdaydata[i]['media_type'],
-          'indexno': i,
-        });
+    } else if (val == 2) {
+      var trendingdayresponse = await http.get(Uri.parse(trendingdayurl));
+      if (trendingdayresponse.statusCode == 200) {
+        var temp = jsonDecode(trendingdayresponse.body);
+        var trendingdaydata = temp['results'];
+        for (var i = 0; i < trendingdaydata.length; i++) {
+          trending.add({
+            'id': trendingdaydata[i]['id'],
+            'poster_path': trendingdaydata[i]['poster_path'],
+            'vote_average': trendingdaydata[i]['vote_average'],
+            'media_type': trendingdaydata[i]['media_type'],
+            'indexno': i,
+          });
+        }
       }
     }
   }
@@ -49,6 +51,7 @@ class _HomescreenState extends State<Homescreen> {
   int val = 1;
   @override
   Widget build(BuildContext context) {
+    TabController _tabController = TabController(length: 3, vsync: this);
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -109,7 +112,7 @@ class _HomescreenState extends State<Homescreen> {
                       fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(
-                  width: 12,
+                  width: 20,
                 ),
                 Container(
                   height: 42,
@@ -120,10 +123,17 @@ class _HomescreenState extends State<Homescreen> {
                     padding: const EdgeInsets.all(4),
                     child: DropdownButton(
                         value: val,
+                        dropdownColor: Color.fromRGBO(0, 0, 0, 0.437),
+                        autofocus: true,
+                        icon: Icon(
+                          Icons.arrow_drop_down_sharp,
+                          color: const Color.fromARGB(255, 203, 243, 28),
+                          size: 30,
+                        ),
                         items: [
                           DropdownMenuItem(
                             child: Text(
-                              'Daily',
+                              'This Week',
                               style: TextStyle(
                                   decoration: TextDecoration.none,
                                   color: Colors.white,
@@ -133,7 +143,7 @@ class _HomescreenState extends State<Homescreen> {
                           ),
                           DropdownMenuItem(
                             child: Text(
-                              'Weekly',
+                              'Today',
                               style: TextStyle(
                                   decoration: TextDecoration.none,
                                   color: Colors.white,
@@ -142,12 +152,46 @@ class _HomescreenState extends State<Homescreen> {
                             value: 2,
                           ),
                         ],
-                        onChanged: (value) {}),
+                        onChanged: (value) {
+                          setState(() {
+                            trending.clear();
+                            val = int.parse(
+                              value.toString(),
+                            );
+                          });
+                        }),
                   ),
                 )
               ],
             ),
-          )
+          ),
+          SliverList(
+              delegate: SliverChildListDelegate([
+            Container(
+              height: 45,
+              width: MediaQuery.of(context).size.width,
+              child: TabBar(
+                controller: _tabController,
+                tabs: [
+                  Tab(
+                    child: Text('Movies'),
+                  ),
+                  Tab(
+                    child: Text('Series'),
+                  ),
+                  Tab(
+                    child: Text('Upcoming'),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              child: TabBarView(
+                controller: _tabController,
+                children: [],
+              ),
+            )
+          ]))
         ],
       ),
     );
