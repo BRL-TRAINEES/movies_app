@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:movie_app/apiKey/apiKey.dart';
 import 'dart:convert';
 import 'package:movie_app/apiKey/apiLinks.dart';
 
@@ -11,6 +12,8 @@ class Series extends StatefulWidget {
 }
 
 class _SeriesState extends State<Series> {
+  var populartvseriesurl =
+      'https://api.themoviedb.org/3/tv/popular?api_key=$apikey';
   List<Map<String, dynamic>> popularseries = [];
 
   Future<void> SeriesFunction() async {
@@ -32,6 +35,33 @@ class _SeriesState extends State<Series> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return FutureBuilder(
+        future: SeriesFunction(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: Color.fromARGB(255, 211, 239, 33),
+              ),
+            );
+          } else {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 143,
+                    top: 15,
+                    bottom: 25,
+                  ),
+                  child: Text(
+                    'Popular Series',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                ),
+              ],
+            );
+          }
+        });
   }
 }

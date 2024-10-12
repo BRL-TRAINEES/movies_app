@@ -98,7 +98,9 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                       );
                     } else {
                       return Center(
-                        child: CircularProgressIndicator(),
+                        child: CircularProgressIndicator(
+                          color: Color.fromARGB(255, 211, 239, 33),
+                        ),
                       );
                     }
                   }),

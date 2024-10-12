@@ -13,7 +13,7 @@ class Upcoming extends StatefulWidget {
 class _UpcomingState extends State<Upcoming> {
   List<Map<String, dynamic>> upcoming = [];
 
-  Future<void> Upcoming() async {
+  Future<void> UpcomingFunction() async {
     var upcomingresponse = await http.get(Uri.parse(popularseriesurl));
     if (upcomingresponse.statusCode == 200) {
       var temp = jsonDecode(upcomingresponse.body);
@@ -32,6 +32,33 @@ class _UpcomingState extends State<Upcoming> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return FutureBuilder(
+        future: UpcomingFunction(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: Color.fromARGB(255, 211, 239, 33),
+              ),
+            );
+          } else {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 165,
+                    top: 15,
+                    bottom: 25,
+                  ),
+                  child: Text(
+                    'Upcoming',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                )
+              ],
+            );
+          }
+        });
   }
 }
