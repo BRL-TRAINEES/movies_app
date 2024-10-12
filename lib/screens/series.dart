@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:movie_app/apiKey/apiKey.dart';
 import 'dart:convert';
 import 'package:movie_app/apiKey/apiLinks.dart';
+import 'package:movie_app/listdisplay/sliderlist.dart';
 
 class Series extends StatefulWidget {
   const Series({super.key});
@@ -12,9 +13,16 @@ class Series extends StatefulWidget {
 }
 
 class _SeriesState extends State<Series> {
-  var populartvseriesurl =
-      'https://api.themoviedb.org/3/tv/popular?api_key=$apikey';
   List<Map<String, dynamic>> popularseries = [];
+  List<Map<String, dynamic>> onairseries = [];
+  List<Map<String, dynamic>> topratedseries = [];
+
+  var popularseriesurl =
+      'https://api.themoviedb.org/3/tv/popular?api_key=$apikey';
+  var onairseriesurl =
+      'https://api.themoviedb.org/3/tv/on_the_air?api_key=$apikey';
+  var topratedseriesurl =
+      'https://api.themoviedb.org/3/tv/top_rated?api_key=$apikey';
 
   Future<void> SeriesFunction() async {
     var popularseriesresponse = await http.get(Uri.parse(popularseriesurl));
@@ -28,6 +36,36 @@ class _SeriesState extends State<Series> {
           'date': popularseriesdata[i]['first_air_date'],
           'poster_path': popularseriesdata[i]['poster_path'],
           'vote_average': popularseriesdata[i]['vote_average'],
+        });
+      }
+    }
+
+    var onairresponse = await http.get(Uri.parse(onairseriesurl));
+    if (onairresponse.statusCode == 200) {
+      var temp = jsonDecode(onairresponse.body);
+      var onairjson = temp['results'];
+      for (var i = 0; i < onairjson.length; i++) {
+        onairseries.add({
+          "name": onairjson[i]["name"],
+          "poster_path": onairjson[i]["poster_path"],
+          "vote_average": onairjson[i]["vote_average"],
+          "Date": onairjson[i]["first_air_date"],
+          "id": onairjson[i]["id"],
+        });
+      }
+    }
+
+    var topratedseriesresponse = await http.get(Uri.parse(topratedseriesurl));
+    if (topratedseriesresponse.statusCode == 200) {
+      var temp = jsonDecode(topratedseriesresponse.body);
+      var topratedseriesdata = temp['results'];
+      for (var i = 0; i < topratedseriesdata.length; i++) {
+        topratedseries.add({
+          'id': topratedseriesdata[i]['id'],
+          'name': topratedseriesdata[i]['name'],
+          'date': topratedseriesdata[i]['first_air_date'],
+          'poster_path': topratedseriesdata[i]['poster_path'],
+          'vote_average': topratedseriesdata[i]['vote_average'],
         });
       }
     }
@@ -46,21 +84,12 @@ class _SeriesState extends State<Series> {
             );
           } else {
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 143,
-                    top: 15,
-                    bottom: 25,
-                  ),
-                  child: Text(
-                    'Popular Series',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                ),
-              ],
-            );
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  sliderlist(popularseries, "Popular Now", "movie", 20),
+                  sliderlist(topratedseries, "Top Rated", "movie", 20),
+                  sliderlist(onairseries, "Now Playing", "movie", 20),
+                ]);
           }
         });
   }
