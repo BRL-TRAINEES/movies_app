@@ -185,12 +185,6 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                 ],
               ),
             ),
-            Container(
-              child: TabBarView(
-                controller: _tabController,
-                children: [],
-              ),
-            )
           ]))
         ],
       ),
