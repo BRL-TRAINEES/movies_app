@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:movie_app/apiKey/apiKey.dart';
 import 'dart:convert';
-import 'package:movie_app/apiKey/apiLinks.dart';
+import 'package:movie_app/listdisplay/sliderlist.dart';
 
 class Upcoming extends StatefulWidget {
   const Upcoming({super.key});
@@ -12,9 +13,11 @@ class Upcoming extends StatefulWidget {
 
 class _UpcomingState extends State<Upcoming> {
   List<Map<String, dynamic>> upcoming = [];
+  var upcomingurl =
+      'https://api.themoviedb.org/3/movie/upcoming?api_key=$apikey';
 
   Future<void> UpcomingFunction() async {
-    var upcomingresponse = await http.get(Uri.parse(popularseriesurl));
+    var upcomingresponse = await http.get(Uri.parse(upcomingurl));
     if (upcomingresponse.statusCode == 200) {
       var temp = jsonDecode(upcomingresponse.body);
       var upcomingdata = temp['results'];
@@ -43,21 +46,10 @@ class _UpcomingState extends State<Upcoming> {
             );
           } else {
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 165,
-                    top: 15,
-                    bottom: 25,
-                  ),
-                  child: Text(
-                    'Upcoming',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                )
-              ],
-            );
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  sliderlist(upcoming, "Upcoming", 20),
+                ]);
           }
         });
   }

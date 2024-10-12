@@ -17,4 +17,4 @@ String onairseriesurl =
 String nowplayingmoviesurl =
     'https://api.themoviedb.org/3/movie/now_playing?api_key=$apikey';
 String upcomingmoviesurl =
-    'https://api.themoviedb.org/3/movie/latest?api_key=$apikey';
+    'https://api.themoviedb.org/3/movie/upcoming?api_key=$apikey';

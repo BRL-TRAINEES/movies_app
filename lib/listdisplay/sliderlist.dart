@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget sliderlist(List listname, String title, String type, itemlength) {
+Widget sliderlist(List listname, String title, itemlength) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [

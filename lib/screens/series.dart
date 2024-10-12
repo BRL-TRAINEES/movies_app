@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_app/apiKey/apiKey.dart';
 import 'dart:convert';
-import 'package:movie_app/apiKey/apiLinks.dart';
 import 'package:movie_app/listdisplay/sliderlist.dart';
 
 class Series extends StatefulWidget {
@@ -43,14 +42,14 @@ class _SeriesState extends State<Series> {
     var onairresponse = await http.get(Uri.parse(onairseriesurl));
     if (onairresponse.statusCode == 200) {
       var temp = jsonDecode(onairresponse.body);
-      var onairjson = temp['results'];
-      for (var i = 0; i < onairjson.length; i++) {
+      var onairdata = temp['results'];
+      for (var i = 0; i < onairdata.length; i++) {
         onairseries.add({
-          "name": onairjson[i]["name"],
-          "poster_path": onairjson[i]["poster_path"],
-          "vote_average": onairjson[i]["vote_average"],
-          "Date": onairjson[i]["first_air_date"],
-          "id": onairjson[i]["id"],
+          "name": onairdata[i]["name"],
+          "poster_path": onairdata[i]["poster_path"],
+          "vote_average": onairdata[i]["vote_average"],
+          "Date": onairdata[i]["first_air_date"],
+          "id": onairdata[i]["id"],
         });
       }
     }
@@ -86,9 +85,9 @@ class _SeriesState extends State<Series> {
             return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  sliderlist(popularseries, "Popular Now", "movie", 20),
-                  sliderlist(topratedseries, "Top Rated", "movie", 20),
-                  sliderlist(onairseries, "Now Playing", "movie", 20),
+                  sliderlist(popularseries, "Popular Now", 20),
+                  sliderlist(topratedseries, "Top Rated", 20),
+                  sliderlist(onairseries, "Now Playing", 20),
                 ]);
           }
         });
