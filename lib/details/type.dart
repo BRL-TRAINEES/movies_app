@@ -14,10 +14,10 @@ class typecheck extends StatefulWidget {
 
 class _typecheckState extends State<typecheck> {
   checktype() {
-    if (widget.typechecker == 'movie') {
-      return Moviedetails(widget.idnew);
-    } else if (widget.typechecker == 'series') {
-      return Seriesdetails(widget.typechecker);
+    if (widget.typechecker.toString() == 'movie') {
+      return Moviedetails(widget.idnew.toString());
+    } else if (widget.typechecker.toString() == 'tv') {
+      return Seriesdetails(widget.idnew.toString());
     } else {
       return Scaffold(
         appBar: AppBar(

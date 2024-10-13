@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:movie_app/details/moviedetails.dart';
 import 'package:movie_app/details/seriesdetails.dart';
+import 'package:movie_app/listdisplay/searchbar.dart';
 import 'package:movie_app/screens/movies.dart';
 import 'package:movie_app/screens/series.dart';
 import 'package:movie_app/screens/upcoming.dart';
@@ -191,6 +192,7 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
           ),
           SliverList(
               delegate: SliverChildListDelegate([
+            SearchbarFunction(),
             Container(
               height: 45,
               width: MediaQuery.of(context).size.width,

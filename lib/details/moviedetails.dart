@@ -16,7 +16,6 @@ class Moviedetails extends StatefulWidget {
 
 class _MoviedetailsState extends State<Moviedetails> {
   List<Map<String, dynamic>> MovieDetails = [];
-  // List<Map<String, dynamic>> movietrailers = [];
   // List<Map<String, dynamic>> UserReviews = [];
   // List<Map<String, dynamic>> similarmovies = [];
   // List<Map<String, dynamic>> recommendedmovies = [];
@@ -27,9 +26,7 @@ class _MoviedetailsState extends State<Moviedetails> {
     var moviedetailurl = 'https://api.themoviedb.org/3/movie/' +
         widget.movieid.toString() +
         '?api_key=$tmdbapikey';
-    // var movietrailersurl = 'https://api.themoviedb.org/3/movie/' +
-    //     widget.movieid.toString() +
-    //     '/videos?api_key=$tmdbapikey';
+
     // var UserReviewurl = 'https://api.themoviedb.org/3/movie/' +
     //     widget.movieid.toString() +
     //     '/reviews?api_key=$tmdbapikey';
@@ -46,6 +43,7 @@ class _MoviedetailsState extends State<Moviedetails> {
       for (var i = 0; i < 1; i++) {
         MovieDetails.add({
           "backdrop_path": moviedetail['backdrop_path'],
+          "poster_path": moviedetail['poster_path'],
           "title": moviedetail['title'],
           "vote_average": moviedetail['vote_average'],
           "overview": moviedetail['overview'],
@@ -94,20 +92,6 @@ class _MoviedetailsState extends State<Moviedetails> {
     //       "id": similarmovies[i]['id'],
     //     });
     //   }
-    // }
-
-    // var movietrailersresponse = await http.get(Uri.parse(movietrailersurl));
-    // if (movietrailersresponse.statusCode == 200) {
-    //   var temp = jsonDecode(movietrailersresponse.body);
-    //   var movietrailers = temp['results'];
-    //   for (var i = 0; i < movietrailers.length; i++) {
-    //     if (movietrailers[i]['type'] == "Trailer") {
-    //       movietrailers.add({
-    //         "key": movietrailers[i]['key'],
-    //       });
-    //     }
-    //   }
-    //   movietrailers.add({'key': 'aJ0cZTcTh90'});
     // }
 
     // var recommendedmoviesresponse =
@@ -170,16 +154,11 @@ class _MoviedetailsState extends State<Moviedetails> {
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                      'https://image.tmdb.org/t/p/original/${MovieDetails[0]['backdrop_path']}'),
-                                ),
-                              ),
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          'https://image.tmdb.org/t/p/w500${MovieDetails[0]['poster_path']}'),
+                                      fit: BoxFit.fill)),
                             ),
-                            // child: trailer(
-                            //   movietrailers[0]['key'],
-                            // ),
                           ),
                         )),
                     SliverList(
