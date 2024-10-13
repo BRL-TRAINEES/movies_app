@@ -14,9 +14,9 @@ class typecheck extends StatefulWidget {
 
 class _typecheckState extends State<typecheck> {
   checktype() {
-    if (widget.typechecker.toString() == 'movie') {
+    if (widget.typechecker == 'movie') {
       return Moviedetails(widget.idnew);
-    } else if (widget.typechecker.toString() == 'series') {
+    } else if (widget.typechecker == 'series') {
       return Seriesdetails(widget.typechecker);
     } else {
       return Scaffold(

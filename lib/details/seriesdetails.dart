@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:movie_app/apiKey/apiKey.dart';
 import 'package:movie_app/screens/homescreen.dart';
-import 'package:movie_app/screens/series.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -19,23 +18,24 @@ class _SeriesdetailsState extends State<Seriesdetails> {
   List SeriesGeneres = [];
 
   Future Seriesdetails() async {
-    var moviedetailurl = 'https://api.themoviedb.org/3/movie/' +
+    var seriesdetailurl = 'https://api.themoviedb.org/3/tv/' +
         widget.seriesid.toString() +
         '?api_key=$tmdbapikey';
 
-    var moviedetailresponse = await http.get(Uri.parse(moviedetailurl));
-    if (moviedetailresponse.statusCode == 200) {
-      var Seriesdetails = jsonDecode(moviedetailresponse.body);
+    var seriesdetailresponse = await http.get(Uri.parse(seriesdetailurl));
+    if (seriesdetailresponse.statusCode == 200) {
+      var Seriesdetails = jsonDecode(seriesdetailresponse.body);
+
       for (var i = 0; i < 1; i++) {
         seriesDetails.add({
           "poster_path": Seriesdetails['poster_path'],
-          "title": Seriesdetails['original_title'],
+          "name": Seriesdetails['name'],
           "vote_average": Seriesdetails['vote_average'],
           "overview": Seriesdetails['overview'],
-          "release_date": Seriesdetails['release_date'],
-          "runtime": Seriesdetails['runtime'],
-          "budget": Seriesdetails['budget'],
-          "revenue": Seriesdetails['revenue'],
+          "first_air_date": Seriesdetails['first_air_date'],
+          "last_air_date": Seriesdetails['last_air_date'],
+          "number_of_episodes": Seriesdetails['number_of_episodes'],
+          "in_production": Seriesdetails['in_production'],
         });
       }
       for (var i = 0; i < Seriesdetails['genres'].length; i++) {
@@ -136,18 +136,27 @@ class _SeriesdetailsState extends State<Seriesdetails> {
                                           color: Color.fromRGBO(25, 25, 25, 1),
                                           borderRadius:
                                               BorderRadius.circular(10)),
-                                      child: Text(seriesDetails[0]['runtime']
-                                              .toString() +
-                                          ' minutes'))
+                                      child: Text(
+                                        seriesDetails[0]['number_of_episodes']
+                                                .toString() +
+                                            ' episodes',
+                                      ))
                                 ],
                               )
                             ],
                           ),
                           Padding(
                               padding: EdgeInsets.only(left: 20, top: 10),
-                              child: Text('Description :')),
+                              child: Text(
+                                'Description :',
+                                style: TextStyle(
+                                    color: Color.fromARGB(214, 237, 231, 231),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              )),
                           Padding(
-                              padding: EdgeInsets.only(left: 20, top: 10),
+                              padding:
+                                  EdgeInsets.only(left: 20, top: 10, right: 20),
                               child: Text(
                                   seriesDetails[0]['overview'].toString())),
                           Padding(
@@ -156,16 +165,20 @@ class _SeriesdetailsState extends State<Seriesdetails> {
                           ),
                           Padding(
                               padding: EdgeInsets.only(left: 20, top: 20),
-                              child: Text('Release Date : ' +
-                                  seriesDetails[0]['release_date'].toString())),
+                              child: Text('First Episode Date : ' +
+                                  seriesDetails[0]['first_air_date']
+                                      .toString())),
                           Padding(
                               padding: EdgeInsets.only(left: 20, top: 20),
-                              child: Text('Budget : ' +
-                                  seriesDetails[0]['budget'].toString())),
+                              child: Text('Latest Episode Date : ' +
+                                  seriesDetails[0]['last_air_date']
+                                      .toString())),
                           Padding(
                               padding: EdgeInsets.only(left: 20, top: 20),
-                              child: Text('Revenue : ' +
-                                  seriesDetails[0]['revenue'].toString())),
+                              child: Text(
+                                  seriesDetails[0]['in_production'] == false
+                                      ? 'Series Ended'
+                                      : 'Series In Production')),
                         ],
                       ),
                     ),

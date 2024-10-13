@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:movie_app/apiKey/apiKey.dart';
 import 'package:http/http.dart' as http;
-import 'package:movie_app/listdisplay/sliderlist.dart';
 import 'dart:convert';
 
 import 'package:movie_app/screens/homescreen.dart';
@@ -231,9 +230,16 @@ class _MoviedetailsState extends State<Moviedetails> {
                           ),
                           Padding(
                               padding: EdgeInsets.only(left: 20, top: 10),
-                              child: Text('Description :')),
+                              child: Text(
+                                'Description :',
+                                style: TextStyle(
+                                    color: Color.fromARGB(214, 237, 231, 231),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold),
+                              )),
                           Padding(
-                              padding: EdgeInsets.only(left: 20, top: 10),
+                              padding:
+                                  EdgeInsets.only(left: 20, top: 10, right: 20),
                               child:
                                   Text(MovieDetails[0]['overview'].toString())),
                           Padding(
