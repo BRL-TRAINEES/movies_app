@@ -6,7 +6,7 @@ class typecheck extends StatefulWidget {
   var idnew;
   var typechecker;
 
-  typecheck({super.key, this.idnew, this.typechecker});
+  typecheck(this.idnew, this.typechecker);
 
   @override
   State<typecheck> createState() => _typecheckState();

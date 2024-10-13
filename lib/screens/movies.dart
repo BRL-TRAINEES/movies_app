@@ -27,30 +27,30 @@ class _MoviesState extends State<Movies> {
 
     var popularmoviesresponse = await http.get(Uri.parse(popularmoviesurl));
     if (popularmoviesresponse.statusCode == 200) {
-      var tempdata = jsonDecode(popularmoviesresponse.body);
-      var popularmoviesjson = tempdata['results'];
-      for (var i = 0; i < popularmoviesjson.length; i++) {
+      var temp = jsonDecode(popularmoviesresponse.body);
+      var popularMovies = temp['results'];
+      for (var i = 0; i < popularMovies.length; i++) {
         popularmovies.add({
-          "name": popularmoviesjson[i]["title"],
-          "poster_path": popularmoviesjson[i]["poster_path"],
-          "vote_average": popularmoviesjson[i]["vote_average"],
-          "Date": popularmoviesjson[i]["release_date"],
-          "id": popularmoviesjson[i]["id"],
+          "name": popularMovies[i]["title"],
+          "poster_path": popularMovies[i]["poster_path"],
+          "vote_average": popularMovies[i]["vote_average"],
+          "Date": popularMovies[i]["release_date"],
+          "id": popularMovies[i]["id"],
         });
       }
     }
 
     var topratedmoviesresponse = await http.get(Uri.parse(topratedmoviesurl));
     if (topratedmoviesresponse.statusCode == 200) {
-      var tempdata = jsonDecode(topratedmoviesresponse.body);
-      var topratedmoviesjson = tempdata['results'];
-      for (var i = 0; i < topratedmoviesjson.length; i++) {
+      var temp = jsonDecode(topratedmoviesresponse.body);
+      var topratedMovies = temp['results'];
+      for (var i = 0; i < topratedMovies.length; i++) {
         topratedmovies.add({
-          "name": topratedmoviesjson[i]["title"],
-          "poster_path": topratedmoviesjson[i]["poster_path"],
-          "vote_average": topratedmoviesjson[i]["vote_average"],
-          "Date": topratedmoviesjson[i]["release_date"],
-          "id": topratedmoviesjson[i]["id"],
+          "name": topratedMovies[i]["title"],
+          "poster_path": topratedMovies[i]["poster_path"],
+          "vote_average": topratedMovies[i]["vote_average"],
+          "Date": topratedMovies[i]["release_date"],
+          "id": topratedMovies[i]["id"],
         });
       }
     }
@@ -58,15 +58,15 @@ class _MoviesState extends State<Movies> {
     var nowplayingmoviesresponse =
         await http.get(Uri.parse(nowplayingmoviesurl));
     if (nowplayingmoviesresponse.statusCode == 200) {
-      var tempdata = jsonDecode(nowplayingmoviesresponse.body);
-      var nowplayingmoviesjson = tempdata['results'];
-      for (var i = 0; i < nowplayingmoviesjson.length; i++) {
+      var temp = jsonDecode(nowplayingmoviesresponse.body);
+      var nowplayingMovies = temp['results'];
+      for (var i = 0; i < nowplayingMovies.length; i++) {
         nowplayingmovies.add({
-          "name": nowplayingmoviesjson[i]["title"],
-          "poster_path": nowplayingmoviesjson[i]["poster_path"],
-          "vote_average": nowplayingmoviesjson[i]["vote_average"],
-          "Date": nowplayingmoviesjson[i]["release_date"],
-          "id": nowplayingmoviesjson[i]["id"],
+          "name": nowplayingMovies[i]["title"],
+          "poster_path": nowplayingMovies[i]["poster_path"],
+          "vote_average": nowplayingMovies[i]["vote_average"],
+          "Date": nowplayingMovies[i]["release_date"],
+          "id": nowplayingMovies[i]["id"],
         });
       }
     }
