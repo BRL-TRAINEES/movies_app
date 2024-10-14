@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:movie_app/apiKey/apiKey.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:movie_app/screens/homescreen.dart';
 
 class Moviedetails extends StatefulWidget {
@@ -23,19 +22,20 @@ class _MoviedetailsState extends State<Moviedetails> {
   List MovieGeneres = [];
 
   Future Moviedetails() async {
+    await dotenv.load();
     var moviedetailurl = 'https://api.themoviedb.org/3/movie/' +
         widget.movieid.toString() +
-        '?api_key=$tmdbapikey';
+        '?api_key=${dotenv.env['tmdbapikey']}';
 
     // var UserReviewurl = 'https://api.themoviedb.org/3/movie/' +
     //     widget.movieid.toString() +
-    //     '/reviews?api_key=$tmdbapikey';
+    //     '/reviews?api_key=${dotenv.env['tmdbapikey']}';
     // var similarmoviesurl = 'https://api.themoviedb.org/3/movie/' +
     //     widget.movieid.toString() +
-    //     '/similar?api_key=$tmdbapikey';
+    //     '/similar?api_key=${dotenv.env['tmdbapikey']}';
     // var recommendedmoviesurl = 'https://api.themoviedb.org/3/movie/' +
     //     widget.movieid.toString() +
-    //     '/recommendations?api_key=$tmdbapikey';
+    //     '/recommendations?api_key=${dotenv.env['tmdbapikey']}';
 
     var moviedetailresponse = await http.get(Uri.parse(moviedetailurl));
     if (moviedetailresponse.statusCode == 200) {

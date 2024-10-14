@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:movie_app/apiKey/apiKey.dart';
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:movie_app/listdisplay/sliderlist.dart';
 
@@ -18,12 +18,13 @@ class _MoviesState extends State<Movies> {
   List<Map<String, dynamic>> nowplayingmovies = [];
 
   Future<void> MoviesFunction() async {
+    await dotenv.load();
     var popularmoviesurl =
-        'https://api.themoviedb.org/3/movie/popular?api_key=$tmdbapikey';
+        'https://api.themoviedb.org/3/movie/popular?api_key=${dotenv.env['tmdbapikey']}';
     var nowplayingmoviesurl =
-        'https://api.themoviedb.org/3/movie/now_playing?api_key=$tmdbapikey';
+        'https://api.themoviedb.org/3/movie/now_playing?api_key=${dotenv.env['tmdbapikey']}';
     var topratedmoviesurl =
-        'https://api.themoviedb.org/3/movie/top_rated?api_key=$tmdbapikey';
+        'https://api.themoviedb.org/3/movie/top_rated?api_key=${dotenv.env['tmdbapikey']}';
 
     var popularmoviesresponse = await http.get(Uri.parse(popularmoviesurl));
     if (popularmoviesresponse.statusCode == 200) {

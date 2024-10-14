@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:movie_app/apiKey/apiKey.dart';
 import 'package:movie_app/screens/homescreen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class Seriesdetails extends StatefulWidget {
   var seriesid;
@@ -18,9 +18,10 @@ class _SeriesdetailsState extends State<Seriesdetails> {
   List SeriesGeneres = [];
 
   Future Seriesdetails() async {
+    await dotenv.load();
     var seriesdetailurl = 'https://api.themoviedb.org/3/tv/' +
         widget.seriesid.toString() +
-        '?api_key=$tmdbapikey';
+        '?api_key=${dotenv.env['tmdbapikey']}';
 
     var seriesdetailresponse = await http.get(Uri.parse(seriesdetailurl));
     if (seriesdetailresponse.statusCode == 200) {

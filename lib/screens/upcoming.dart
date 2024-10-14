@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:movie_app/apiKey/apiKey.dart';
 import 'dart:convert';
 import 'package:movie_app/listdisplay/sliderlist.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class Upcoming extends StatefulWidget {
   const Upcoming({super.key});
@@ -14,9 +14,10 @@ class Upcoming extends StatefulWidget {
 class _UpcomingState extends State<Upcoming> {
   List<Map<String, dynamic>> upcoming = [];
   var upcomingurl =
-      'https://api.themoviedb.org/3/movie/upcoming?api_key=$tmdbapikey';
+      'https://api.themoviedb.org/3/movie/upcoming?api_key=${dotenv.env['tmdbapikey']}';
 
   Future<void> UpcomingFunction() async {
+    await dotenv.load();
     var upcomingresponse = await http.get(Uri.parse(upcomingurl));
     if (upcomingresponse.statusCode == 200) {
       var temp = jsonDecode(upcomingresponse.body);

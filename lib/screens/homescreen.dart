@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:movie_app/apiKey/apiKey.dart';
 import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:movie_app/details/moviedetails.dart';
@@ -9,6 +8,7 @@ import 'package:movie_app/listdisplay/searchbar.dart';
 import 'package:movie_app/screens/movies.dart';
 import 'package:movie_app/screens/series.dart';
 import 'package:movie_app/screens/upcoming.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -20,11 +20,12 @@ class Homescreen extends StatefulWidget {
 class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
   List<Map<String, dynamic>> trending = [];
   String trendingweekurl =
-      'https://api.themoviedb.org/3/trending/all/week?api_key=$tmdbapikey';
+      'https://api.themoviedb.org/3/trending/all/week?api_key=${dotenv.env['tmdbapikey']}';
   String trendingdayurl =
-      'https://api.themoviedb.org/3/trending/all/day?api_key=$tmdbapikey';
+      'https://api.themoviedb.org/3/trending/all/day?api_key=${dotenv.env['tmdbapikey']}';
 
   Future<void> trendinghome() async {
+    await dotenv.load();
     if (val == 1) {
       var trendingweekresponse = await http.get(Uri.parse(trendingweekurl));
       if (trendingweekresponse.statusCode == 200) {

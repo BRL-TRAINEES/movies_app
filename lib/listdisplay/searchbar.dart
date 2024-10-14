@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:movie_app/apiKey/apiKey.dart';
 import 'package:movie_app/details/type.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class SearchbarFunction extends StatefulWidget {
   const SearchbarFunction({super.key});
@@ -15,8 +15,9 @@ class _SearchbarFunctionState extends State<SearchbarFunction> {
   List<Map<String, dynamic>> searchresult = [];
 
   Future<void> searchfunction(val) async {
+    await dotenv.load();
     var searchurl =
-        'https://api.themoviedb.org/3/search/multi?api_key=$tmdbapikey&query=$val';
+        'https://api.themoviedb.org/3/search/multi?api_key=${dotenv.env['tmdbapikey']}&query=$val';
     var searchresponse = await http.get(Uri.parse(searchurl));
     if (searchresponse.statusCode == 200) {
       var temp = jsonDecode(searchresponse.body);
