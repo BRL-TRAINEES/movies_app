@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/details/moviedetails.dart';
 import 'package:movie_app/details/seriesdetails.dart';
+import 'package:movie_app/listdisplay/transition.dart';
 
 Widget sliderlist(List listname, String title, String type, itemlength) {
   return Column(
@@ -27,17 +28,11 @@ Widget sliderlist(List listname, String title, String type, itemlength) {
               return GestureDetector(
                 onTap: () {
                   if (type == 'movie') {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                Moviedetails(listname[index]['id'])));
+                    Navigator.push(context,
+                        createRoute(Moviedetails(listname[index]['id'])));
                   } else if (type == 'series') {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                Seriesdetails(listname[index]['id'])));
+                    Navigator.push(context,
+                        createRoute(Seriesdetails(listname[index]['id'])));
                   }
                 },
                 child: Container(

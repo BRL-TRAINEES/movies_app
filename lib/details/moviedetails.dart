@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -182,22 +183,26 @@ class _MoviedetailsState extends State<Moviedetails> {
                                               child: Text(MovieGeneres[index]));
                                         })),
                               ]),
-                              Row(
-                                children: [
-                                  Container(
-                                      padding: EdgeInsets.all(10),
-                                      margin:
-                                          EdgeInsets.only(left: 10, top: 10),
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                          color: Color.fromRGBO(25, 25, 25, 1),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: Text(MovieDetails[0]['runtime']
-                                              .toString() +
+                              Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 20, top: 10, right: 20, bottom: 10),
+                                  child: Text(
+                                    MovieDetails[0]['title'].toString(),
+                                    style: TextStyle(fontSize: 24),
+                                    softWrap: true,
+                                    overflow: TextOverflow.visible,
+                                    maxLines: null,
+                                  )),
+                              Container(
+                                  padding: EdgeInsets.all(10),
+                                  margin: EdgeInsets.only(left: 10, top: 10),
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                      color: Color.fromRGBO(25, 25, 25, 1),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Text(
+                                      MovieDetails[0]['runtime'].toString() +
                                           ' minutes'))
-                                ],
-                              )
                             ],
                           ),
                           Padding(
@@ -241,8 +246,9 @@ class _MoviedetailsState extends State<Moviedetails> {
                 );
               } else {
                 return Center(
-                    child: CircularProgressIndicator(
-                  color: const Color.fromARGB(255, 244, 194, 47),
+                    child: SpinKitRipple(
+                  color: const Color.fromARGB(255, 220, 214, 19),
+                  size: 50.0,
                 ));
               }
             }));

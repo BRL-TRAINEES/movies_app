@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:movie_app/screens/homescreen.dart';
 import 'package:http/http.dart' as http;
@@ -115,6 +116,16 @@ class _SeriesdetailsState extends State<Seriesdetails> {
                                                   Text(SeriesGeneres[index]));
                                         })),
                               ]),
+                              Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 20, top: 10, right: 20, bottom: 10),
+                                  child: Text(
+                                    seriesDetails[0]['name'].toString(),
+                                    style: TextStyle(fontSize: 24),
+                                    softWrap: true,
+                                    overflow: TextOverflow.visible,
+                                    maxLines: null,
+                                  )),
                               Row(
                                 children: [
                                   Container(
@@ -176,8 +187,9 @@ class _SeriesdetailsState extends State<Seriesdetails> {
                 );
               } else {
                 return Center(
-                    child: CircularProgressIndicator(
-                  color: const Color.fromARGB(255, 244, 194, 47),
+                    child: SpinKitRipple(
+                  color: const Color.fromARGB(255, 220, 214, 19),
+                  size: 50.0,
                 ));
               }
             }));

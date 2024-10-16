@@ -6,6 +6,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:movie_app/details/moviedetails.dart';
 import 'package:movie_app/details/seriesdetails.dart';
 import 'package:movie_app/listdisplay/searchbar.dart';
+import 'package:movie_app/listdisplay/transition.dart';
 import 'package:movie_app/screens/movies.dart';
 import 'package:movie_app/screens/series.dart';
 import 'package:movie_app/screens/upcoming.dart';
@@ -88,17 +89,11 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                             return GestureDetector(
                               onTap: () {
                                 if (i['media_type'] == 'movie') {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              Moviedetails(i['id'])));
+                                  Navigator.push(context,
+                                      createRoute(Moviedetails(i['id'])));
                                 } else if (i['media_type'] == 'tv') {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              Seriesdetails(i['id'])));
+                                  Navigator.push(context,
+                                      createRoute(Seriesdetails(i['id'])));
                                 }
                               },
                               child: Container(

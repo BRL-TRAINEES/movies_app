@@ -224,11 +224,10 @@ class _SearchbarFunctionState extends State<SearchbarFunction> {
                                                                         MainAxisAlignment
                                                                             .center,
                                                                     children: [
-                                                                      Icon(
+                                                                      const Icon(
                                                                         Icons
                                                                             .star,
-                                                                        color: const Color
-                                                                            .fromARGB(
+                                                                        color: Color.fromARGB(
                                                                             255,
                                                                             245,
                                                                             200,
@@ -236,14 +235,14 @@ class _SearchbarFunctionState extends State<SearchbarFunction> {
                                                                         size:
                                                                             20,
                                                                       ),
-                                                                      SizedBox(
+                                                                      const SizedBox(
                                                                         width:
                                                                             5,
                                                                       ),
                                                                       Text(
                                                                           '${searchresult[index]['vote_average']}',
                                                                           style:
-                                                                              TextStyle(
+                                                                              const TextStyle(
                                                                             fontFamily:
                                                                                 'open sans',
                                                                             color:
@@ -279,7 +278,7 @@ class _SearchbarFunctionState extends State<SearchbarFunction> {
                                                                         MainAxisAlignment
                                                                             .center,
                                                                     children: [
-                                                                      Icon(
+                                                                      const Icon(
                                                                         Icons
                                                                             .language_outlined,
                                                                         color: Colors
@@ -287,13 +286,13 @@ class _SearchbarFunctionState extends State<SearchbarFunction> {
                                                                         size:
                                                                             20,
                                                                       ),
-                                                                      SizedBox(
+                                                                      const SizedBox(
                                                                         width:
                                                                             5,
                                                                       ),
                                                                       Text(
                                                                           '${searchresult[index]['original_language']}',
-                                                                          style: TextStyle(
+                                                                          style: const TextStyle(
                                                                               fontFamily: 'open sans',
                                                                               decoration: TextDecoration.none,
                                                                               color: Colors.white,
