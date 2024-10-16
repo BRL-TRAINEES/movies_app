@@ -79,23 +79,13 @@ class _SeriesdetailsState extends State<Seriesdetails> {
                         backgroundColor: Color.fromRGBO(14, 14, 14, 0.622),
                         centerTitle: false,
                         expandedHeight:
-                            MediaQuery.of(context).size.height * 0.3,
+                            MediaQuery.of(context).size.height * 0.55,
                         flexibleSpace: FlexibleSpaceBar(
-                          collapseMode: CollapseMode.parallax,
-                          background: FittedBox(
-                            fit: BoxFit.fill,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                      'https://image.tmdb.org/t/p/original/${seriesDetails[0]['poster_path']}'),
-                                ),
-                              ),
-                            ),
-                          ),
-                        )),
+                            collapseMode: CollapseMode.parallax,
+                            background: Image.network(
+                              'https://image.tmdb.org/t/p/original/${seriesDetails[0]['poster_path']}',
+                              fit: BoxFit.cover,
+                            ))),
                     SliverList(
                       delegate: SliverChildListDelegate(
                         [
