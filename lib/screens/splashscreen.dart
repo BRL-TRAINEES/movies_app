@@ -17,7 +17,7 @@ class Splashscreen extends StatelessWidget {
               'assets/animation/Animation - 1729075318143.json',
               fit: BoxFit.cover),
           nextScreen: Homescreen(),
-          duration: 3600,
+          duration: 1850,
           splashIconSize: double.infinity,
           backgroundColor: Color.fromRGBO(222, 219, 18, 0),
         ),
