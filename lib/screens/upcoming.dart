@@ -17,7 +17,6 @@ class _UpcomingState extends State<Upcoming> {
       'https://api.themoviedb.org/3/movie/upcoming?api_key=${dotenv.env['tmdbapikey']}';
 
   Future<void> UpcomingFunction() async {
-    await dotenv.load();
     var upcomingresponse = await http.get(Uri.parse(upcomingurl));
     if (upcomingresponse.statusCode == 200) {
       var temp = jsonDecode(upcomingresponse.body);

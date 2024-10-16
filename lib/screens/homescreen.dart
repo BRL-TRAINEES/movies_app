@@ -25,7 +25,6 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
       'https://api.themoviedb.org/3/trending/all/day?api_key=${dotenv.env['tmdbapikey']}';
 
   Future<void> trendinghome() async {
-    await dotenv.load();
     if (val == 1) {
       var trendingweekresponse = await http.get(Uri.parse(trendingweekurl));
       if (trendingweekresponse.statusCode == 200) {

@@ -18,7 +18,6 @@ class _SeriesdetailsState extends State<Seriesdetails> {
   List SeriesGeneres = [];
 
   Future Seriesdetails() async {
-    await dotenv.load();
     var seriesdetailurl = 'https://api.themoviedb.org/3/tv/' +
         widget.seriesid.toString() +
         '?api_key=${dotenv.env['tmdbapikey']}';

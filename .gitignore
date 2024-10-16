@@ -30,6 +30,8 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+
+# Add .env to ignore list
 .env
 
 # Symbolication related

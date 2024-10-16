@@ -15,7 +15,6 @@ class _SearchbarFunctionState extends State<SearchbarFunction> {
   List<Map<String, dynamic>> searchresult = [];
 
   Future<void> searchfunction(val) async {
-    await dotenv.load();
     var searchurl =
         'https://api.themoviedb.org/3/search/multi?api_key=${dotenv.env['tmdbapikey']}&query=$val';
     var searchresponse = await http.get(Uri.parse(searchurl));

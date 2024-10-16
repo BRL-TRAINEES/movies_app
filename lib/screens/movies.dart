@@ -18,7 +18,6 @@ class _MoviesState extends State<Movies> {
   List<Map<String, dynamic>> nowplayingmovies = [];
 
   Future<void> MoviesFunction() async {
-    await dotenv.load();
     var popularmoviesurl =
         'https://api.themoviedb.org/3/movie/popular?api_key=${dotenv.env['tmdbapikey']}';
     var nowplayingmoviesurl =

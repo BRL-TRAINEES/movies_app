@@ -24,7 +24,6 @@ class _SeriesState extends State<Series> {
       'https://api.themoviedb.org/3/tv/top_rated?api_key=${dotenv.env['tmdbapikey']}';
 
   Future<void> SeriesFunction() async {
-    await dotenv.load();
     var popularseriesresponse = await http.get(Uri.parse(popularseriesurl));
     if (popularseriesresponse.statusCode == 200) {
       var temp = jsonDecode(popularseriesresponse.body);

@@ -22,7 +22,6 @@ class _MoviedetailsState extends State<Moviedetails> {
   List MovieGeneres = [];
 
   Future Moviedetails() async {
-    await dotenv.load();
     var moviedetailurl = 'https://api.themoviedb.org/3/movie/' +
         widget.movieid.toString() +
         '?api_key=${dotenv.env['tmdbapikey']}';
