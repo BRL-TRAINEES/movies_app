@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -119,10 +120,10 @@ class _HomescreenState extends State<Homescreen> with TickerProviderStateMixin {
                       );
                     } else {
                       return Center(
-                        child: CircularProgressIndicator(
-                          color: Color.fromARGB(255, 211, 239, 33),
-                        ),
-                      );
+                          child: SpinKitChasingDots(
+                        color: const Color.fromARGB(255, 220, 214, 19),
+                        size: 50.0,
+                      ));
                     }
                   }),
             ),

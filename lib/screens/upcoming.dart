@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:movie_app/listdisplay/sliderlist.dart';
@@ -40,10 +41,10 @@ class _UpcomingState extends State<Upcoming> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              child: CircularProgressIndicator(
-                color: Color.fromARGB(255, 211, 239, 33),
-              ),
-            );
+                child: SpinKitWanderingCubes(
+              color: const Color.fromARGB(255, 220, 214, 19),
+              size: 50.0,
+            ));
           } else {
             return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

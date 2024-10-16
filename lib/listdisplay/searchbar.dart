@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:movie_app/details/type.dart';
@@ -327,10 +328,18 @@ class _SearchbarFunctionState extends State<SearchbarFunction> {
                                             ])));
                                   }));
                         } else {
-                          return Center(
-                              child: CircularProgressIndicator(
-                            color: const Color.fromARGB(255, 226, 182, 50),
-                          ));
+                          return Column(
+                            children: [
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Center(
+                                  child: SpinKitRipple(
+                                color: const Color.fromARGB(255, 220, 214, 19),
+                                size: 50.0,
+                              )),
+                            ],
+                          );
                         }
                       })
                   : Container(),
