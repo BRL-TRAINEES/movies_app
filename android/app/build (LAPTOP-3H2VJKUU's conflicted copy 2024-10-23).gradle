@@ -42,3 +42,7 @@ android {
 flutter {
     source = "../.."
 }
+
+dependencies {
+  implementation "androidx.activity:activity:1.6.0-alpha05"
+}
